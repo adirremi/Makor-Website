@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import ClientsSection from "@/components/ClientsSection";
 import Reveal from "@/components/Reveal";
 import { homeEn, projects, site } from "@/data/content";
 
@@ -189,25 +190,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" id="clients">
-        <div className="container">
-          <Reveal>
-            <div className="section-head">
-              <p className="eyebrow">Partners</p>
-              <h2>{homeEn.clientsTitle}</h2>
-            </div>
-            <div className="clients-layout">
-              <Image src="/brand/carpi.png" alt="Carpi" width={220} height={120} />
-              <div>
-                <h3 className="display" style={{ fontSize: "1.8rem", marginTop: 0 }}>
-                  {homeEn.carpiTitle}
-                </h3>
-                <p>{homeEn.carpiBody}</p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <ClientsSection
+        title={homeEn.clientsTitle}
+        eyebrow="Partners & clients"
+        carpiTitle={homeEn.carpiTitle}
+        carpiBody={homeEn.carpiBody}
+        exclusiveLabel="Exclusive representative in Israel"
+        trustLabel="Trusted by leading energy, infrastructure and industrial partners."
+      />
 
       <section className="section" id="contact">
         <div className="container">

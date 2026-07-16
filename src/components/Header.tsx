@@ -66,16 +66,21 @@ export default function Header({ locale = "en" }: HeaderProps) {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", open);
+    return () => document.body.classList.remove("nav-open");
+  }, [open]);
+
   return (
-    <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
+    <header className={`site-header ${scrolled || open ? "scrolled" : ""}`}>
       <div className="header-inner">
-        <Link href={locale === "he" ? "/hebrew" : "/"} className="brand">
+        <Link href={locale === "he" ? "/hebrew" : "/"} className="brand" onClick={() => setOpen(false)}>
           <Image src="/brand/logo.png" alt="מקור פתרונות אנרגיה" width={140} height={42} priority />
           <span className="brand-word">MAKOR</span>
         </Link>
 
         <button
-          className="menu-toggle"
+          className={`menu-toggle ${open ? "is-open" : ""}`}
           aria-label="Menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -83,16 +88,25 @@ export default function Header({ locale = "en" }: HeaderProps) {
           <span />
         </button>
 
-        <nav className={`nav ${open ? "open" : ""}`}>
+        <nav className={`nav ${open ? "open" : ""}`} aria-hidden={!open && undefined}>
           {links.map((link) =>
             link.children ? (
               <div className="nav-dropdown" key={link.label}>
-                <Link href={link.href} className={pathname.startsWith("/sbr") || pathname.startsWith("/accs") ? "active" : ""}>
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/sbr") || pathname.startsWith("/accs") ? "active" : ""}
+                >
                   {link.label}
                 </Link>
                 <div className="nav-dropdown-panel">
                   {link.children.map((child) => (
-                    <Link key={child.href} href={child.href} className={pathname === child.href ? "active" : ""}>
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      onClick={() => setOpen(false)}
+                      className={pathname === child.href ? "active" : ""}
+                    >
                       {child.label}
                     </Link>
                   ))}
@@ -102,13 +116,14 @@ export default function Header({ locale = "en" }: HeaderProps) {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => setOpen(false)}
                 className={pathname === link.href ? "active" : ""}
               >
                 {link.label}
               </Link>
             )
           )}
-          <Link className="lang-switch" href={locale === "he" ? "/" : "/hebrew"}>
+          <Link className="lang-switch" href={locale === "he" ? "/" : "/hebrew"} onClick={() => setOpen(false)}>
             {locale === "he" ? "EN" : "עברית"}
           </Link>
         </nav>

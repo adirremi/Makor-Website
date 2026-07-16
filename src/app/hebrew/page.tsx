@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import ClientsSection from "@/components/ClientsSection";
 import Reveal from "@/components/Reveal";
 import { homeHe, projects, site } from "@/data/content";
 
@@ -145,19 +146,14 @@ export default function HebrewHomePage() {
         </div>
       </section>
 
-      <section className="section" id="clients">
-        <div className="container">
-          <Reveal>
-            <div className="section-head">
-              <h2>{homeHe.clientsTitle}</h2>
-            </div>
-            <div className="clients-layout">
-              <Image src="/brand/carpi.png" alt="Carpi" width={220} height={120} />
-              <p>{homeHe.carpiBody}</p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <ClientsSection
+        title={homeHe.clientsTitle}
+        eyebrow="שותפים ולקוחות"
+        carpiTitle="נציגה בלעדית של חברת קרפי בישראל"
+        carpiBody={homeHe.carpiBody}
+        exclusiveLabel="נציגות בלעדית בישראל"
+        trustLabel="עובדים עם שותפים מובילים באנרגיה, תשתיות ותעשייה."
+      />
 
       <section className="section" id="contact">
         <div className="container">
